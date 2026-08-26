@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users MeagMart Home Page --yoeeeee...!!!!</title>
+</head>
+<body>
+<h1>Users MeagMart Home Page ------yoeeee ......!!!!</h1>
+<br>
+Welcome to Users Megamart home page
+<br>
+<br>
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br><hr>
+    Roles: <span sec:authentication="principal.authorities"></span>
+</p>
+<hr>
+<!-- madding a lnk-->
+<div sec:authorize="hasRole('USER')">
+    <a th:href="@{/viewCatalog}">Click to see the product catalog</a>
+                    (Only for Users)
+    <hr>
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/addCatalog}">Click to see the add catalog</a>
+                        (Only for Admins)
+    <hr>
+</div>
+
+<div sec:authorize="hasRole('OPERATOR')">
+    <a th:href="@{/updateCatalog}">Click to see the update catalog</a>
+                        (Only for Operators)
+    <hr>
+</div>
+<form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>
