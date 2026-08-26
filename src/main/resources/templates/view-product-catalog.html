@@ -58,6 +58,15 @@
     </table>
 </div>
 <hr>
-<h3><a th:href="@{/}">Back to Home Page</a></h3>
+<div style="display:flex;" >
+<h3><a th:href="@{/}">Back to Home Page</a>
+    <form action="#" th:action="@{/logout}" method="POST">
+
+        <button  style="width:auto" type="submit" class="btn btn-info col-2"
+        >Logout</button>
+        <!--    <input type="submit" value="Logout" />-->
+    </form>
+    </h3>
+</div>
 </body>
 </html>
