@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Welcome to Users MeagMart Home Page</title>
+    <title>Welcome to Users MegaMart Home Page</title>
 </head>
 <body>
-<h1>Welcome to Users MeagMart Home Page....!!!!</h1>
+
 <br>
 Welcome to Users Megamart home page
 <br>
@@ -26,19 +26,19 @@ Welcome to Users Megamart home page
 
 <!-- madding a lnk-->
 <div sec:authorize="!hasRole('OPERATOR') and !hasRole('ADMIN')">
-    <a th:href="@{/viewCatalog}">Click to see the product catalog</a>
-                    <b>(Only for Users)</b>
+    <h3><a th:href="@{/viewCatalog}">Click to see the product catalog</a>
+                    <b>(Only for Users)</b></h3>
     <hr>
 </div>
 <div sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')">
-    <a th:href="@{/viewCatalog}">Click to see the add catalog</a>
-                        <b>(Only for Admins)</b>
+    <h3>  <a th:href="@{/viewCatalog}">Click to see the add catalog</a>
+                        <b>(Only for Admins)</b></h3>
     <hr>
 </div>
 
 <div sec:authorize="hasRole('USER') and hasRole('OPERATOR') and !hasRole('ADMIN')">
-    <a th:href="@{/viewCatalog}">Click to see the update catalog</a>
-                        <b>(Only for Operators)</b>
+    <h3> <a th:href="@{/viewCatalog}">Click to see the update catalog</a>
+                        <b>(Only for Operators)</b></h3>
     <hr>
 </div>
 <form action="#" th:action="@{/logout}" method="POST">
