@@ -29,6 +29,7 @@ public class DemoMegamartConfig {
                          configurer
                                  .requestMatchers("/").hasRole("USER")
                                  .requestMatchers("/viewCatalog/**").hasRole("USER")
+//                                 .requestMatchers("/viewCatalog/**").hasAnyRole("USER","ADMIN","OPERATOR")
                                  .requestMatchers("/addCatalog/**").hasRole("ADMIN")
                                  .requestMatchers("/updateCatalog/**").hasRole("OPERATOR")
 

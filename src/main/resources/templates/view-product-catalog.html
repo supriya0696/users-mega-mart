@@ -9,17 +9,17 @@
 <body>
 <h1 style="text-align:center;" >Welcome to VIEW PRODUCT CATALOG page</h1>
 <hr >
-<p sec:authorize="hasAnyRole('USER')">This page can only be viewed by normal day to day customer (Users).</p>
-<p sec:authorize="hasAnyRole('OPERATOR')">This page can only be viewed by Operators who can update the product list (Operators).</p>
-<p sec:authorize="hasAnyRole('ADMIN')">This page can only be viewed by Admins who can update and add the enw product to product catalog (Admins).</p>
+<p sec:authorize="!hasRole('OPERATOR') and !hasRole('ADMIN')"><b>This page can only be viewed by normal day to day customer (USERS)</b></p>
+<p sec:authorize="hasRole('USER') and hasRole('OPERATOR') and !hasRole('ADMIN') "><b>This page can only be viewed by Operators who can update the product list (OPERATORS)</b></p>
+<p sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')"><b>This page can only be viewed by Admins who can update and add the new product to product catalog (ADMINS)</b></p>
 
 <hr>
 
 <div class="container">
-    <h3>Emplooyee Directory</h3>
+    <h3>Employee Directory</h3>
     <hr>
     <!-- Add a button -->
-    <a th:href="@{/showProductCatalogForm}" sec:authorize="hasAnyRole('ADMIN','OPERATOR')" class="btn btn-primary btn-sm mb-3">
+    <a th:href="@{/showProductCatalogForm}" sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')" class="btn btn-primary btn-sm mb-3">
         Add Product
     </a>
     <table class="table table-bordered table-striped">
@@ -47,7 +47,7 @@
                         </td>
                         <td sec:authorize="hasAnyRole('ADMIN')">
                             <a th:href="@{/delete(productId=${tempProduct.id})}" class="btn btn-danger btn-sm"
-                               onclick = "if(!(confirm('Are you sure want ti delete this employee ?'))) return false ">Delete
+                               onclick="alert('Product saved successfully!')">Delete
 
                             </a>
                         </td>

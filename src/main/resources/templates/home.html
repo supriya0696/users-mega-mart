@@ -2,35 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Users MeagMart Home Page --yoeeeee...!!!!</title>
+    <title>Welcome to Users MeagMart Home Page</title>
 </head>
 <body>
-<h1>Users MeagMart Home Page ------yoeeee ......!!!!</h1>
+<h1>Welcome to Users MeagMart Home Page....!!!!</h1>
 <br>
 Welcome to Users Megamart home page
 <br>
 <br>
 <p>
-    User: <span sec:authentication="principal.username"></span>
-    <br><hr>
-    Roles: <span sec:authentication="principal.authorities"></span>
+    <h3><b>User:</b> <span sec:authentication="principal.username"></span>
+        <br><hr>
+        <b>Roles:</b> <span sec:authentication="principal.authorities"></span>
+    </h3>
 </p>
 <hr>
+
+<p sec:authorize="!hasRole('OPERATOR') and !hasRole('ADMIN')"><b>This page can only be viewed by normal day to day customer (USERS)</b></p>
+<p sec:authorize="hasRole('USER') and hasRole('OPERATOR') and !hasRole('ADMIN') "><b>This page can only be viewed by Operators who can update the product list (OPERATORS)</b></p>
+<p sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')"><b>This page can only be viewed by Admins who can update and add the new product to product catalog (ADMINS)</b></p>
+
 <!-- madding a lnk-->
-<div sec:authorize="hasRole('USER')">
+<div sec:authorize="!hasRole('OPERATOR') and !hasRole('ADMIN')">
     <a th:href="@{/viewCatalog}">Click to see the product catalog</a>
-                    (Only for Users)
+                    <b>(Only for Users)</b>
     <hr>
 </div>
-<div sec:authorize="hasRole('ADMIN')">
-    <a th:href="@{/addCatalog}">Click to see the add catalog</a>
-                        (Only for Admins)
+<div sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')">
+    <a th:href="@{/viewCatalog}">Click to see the add catalog</a>
+                        <b>(Only for Admins)</b>
     <hr>
 </div>
 
-<div sec:authorize="hasRole('OPERATOR')">
-    <a th:href="@{/updateCatalog}">Click to see the update catalog</a>
-                        (Only for Operators)
+<div sec:authorize="hasRole('USER') and hasRole('OPERATOR') and !hasRole('ADMIN')">
+    <a th:href="@{/viewCatalog}">Click to see the update catalog</a>
+                        <b>(Only for Operators)</b>
     <hr>
 </div>
 <form action="#" th:action="@{/logout}" method="POST">

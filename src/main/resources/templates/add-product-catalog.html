@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Product Directory</title>
@@ -23,7 +23,7 @@ This page can only be viewed ADMINS.</p>
         <input type="text" th:field="*{category}" class="form-control mb-4 w-25" placeholder="Category" />
         <input type="text" th:field="*{price}" class="form-control mb-4 w-25" placeholder="Price" />
         <input type="text" th:field="*{status}" class="form-control mb-4 w-25" placeholder="Status" />
-        <button th:href="@{/save(productId=${product})}"  type="submit" class="btn btn-info col-2">Save</button>
+        <button th:href="@{/save(productId=${product})}"  type="submit" class="btn btn-info col-2" >Save</button>
 
     </form>
     <hr>
