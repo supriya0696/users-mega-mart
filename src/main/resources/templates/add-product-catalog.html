@@ -8,22 +8,36 @@
 
 </head>
 <body>
-<h1>Welcome to ADD PRODUCT CATALOG page</h1>
+<h1 style="text-align:center;">Welcome to ADD PRODUCT CATALOG page</h1>
 <hr>
-This page can only be viewed ADMINS.</p>
+<p><h3>This page can only be viewed ADMINS and OPERATORS.</h3></p>
 <hr>
 <div class="container">
-    <h3> Employee Directory </h3>
+    <h3> Product Directory </h3>
     <hr>
 <!--    <p class="h4 mb-4">Save Product </p>-->
     <form action="#" th:action="@{/save}"
           th:object="${product}" method="POST">
         <input type="hidden" th:field="*{id}" />
-        <input type="text" th:field="*{productName}" class="form-control mb-4 w-25" placeholder="Product name" />
-        <input type="text" th:field="*{category}" class="form-control mb-4 w-25" placeholder="Category" />
-        <input type="text" th:field="*{price}" class="form-control mb-4 w-25" placeholder="Price" />
-        <input type="text" th:field="*{status}" class="form-control mb-4 w-25" placeholder="Status" />
-        <button th:href="@{/save(productId=${product})}"  type="submit" class="btn btn-info col-2" >Save</button>
+        <div style="display:flex; gap:95px;">
+            <label style=" width: 108px;">Product Name:  </label>
+            <input type="text" th:field="*{productName}" class="form-control mb-4 w-25" placeholder="Product name" />
+        </div>
+        <div style="display:flex; gap:95px;">
+            <label style=" width: 108px;">Category:  </label>
+            <input type="text" th:field="*{category}" class="form-control mb-4 w-25" placeholder="Category" />
+        </div>
+        <div style="display:flex; gap:95px;">
+            <label style=" width: 108px;">Price:  </label>
+            <input type="text" th:field="*{price}" class="form-control mb-4 w-25" placeholder="Price" />
+        </div>
+            <div style="gap:10px;">
+                <label style=" width: 108px;">Status:</label>
+                <br><span>Active,Inactive,Out_of_stock</span>
+                <input style ="display: inline-flex;" type="text" th:field="*{status}" class="form-control mb-4 w-25" placeholder="Status" />
+            </div>
+        <button th:href="@{/save(productId=${product})}" type="submit" class="btn btn-info col-2"
+                onclick="alert('Product upadted/saved successfully!')">Save</button>
 
     </form>
     <hr>

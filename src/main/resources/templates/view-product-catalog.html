@@ -16,7 +16,7 @@
 <hr>
 
 <div class="container">
-    <h3>Employee Directory</h3>
+    <h3>Product Directory</h3>
     <hr>
     <!-- Add a button -->
     <a th:href="@{/showProductCatalogForm}" sec:authorize="hasRole('ADMIN') and hasRole('USER') and hasRole('OPERATOR')" class="btn btn-primary btn-sm mb-3">
@@ -47,8 +47,9 @@
                         </td>
                         <td sec:authorize="hasAnyRole('ADMIN')">
                             <a th:href="@{/delete(productId=${tempProduct.id})}" class="btn btn-danger btn-sm"
-                               onclick="alert('Product saved successfully!')">Delete
-
+                               onclick = "if(!(confirm('Are you sure want to delete this product ?'))) return false ">Delete
+<!--                                "if(!(confirm('Are you sure want ti delete this employee ?'))) return false "-->
+<!--                                "alert('Product saved successfully!')"-->
                             </a>
                         </td>
 

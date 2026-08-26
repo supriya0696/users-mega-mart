@@ -40,7 +40,7 @@ public class ProductController {
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("productId") int theId, Model theModel)
     {
-        //get the product dfrom the servce
+       
         Product theProduct =productService.findById(theId);
         theModel.addAttribute("product", theProduct);
         return "/add-product-catalog";
