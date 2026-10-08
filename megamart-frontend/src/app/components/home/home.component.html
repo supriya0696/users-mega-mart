@@ -1,0 +1,100 @@
+<!-- ─── NAV BAR ──────────────────────────────────────────────── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" routerLink="/">
+      <span class="brand-icon">🛒</span>
+      <span class="brand-text">Mega<strong>Mart</strong></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#stats"    class="nav-link">Why Us</a>
+      <button mat-flat-button class="btn-signin" routerLink="/login">Sign In</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">🚀 India's Fastest Growing Mart Platform</span>
+    <h1 class="hero-title">
+      Manage Your <span class="gradient-text">Product Catalog</span><br />
+      Like Never Before
+    </h1>
+    <p class="hero-subtitle">
+      MegaMart gives retailers, operators, and admins a single powerful
+      platform to browse, manage, and track thousands of products — securely
+      and in real time.
+    </p>
+    <div class="hero-cta">
+      <button mat-flat-button class="btn-primary-lg" routerLink="/login">
+        <mat-icon>login</mat-icon> Get Started — Sign In
+      </button>
+      <a href="#features" class="btn-ghost">
+        <mat-icon>arrow_downward</mat-icon> Explore Features
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="floating-card fc1">
+      <mat-icon>inventory_2</mat-icon>
+      <span>10 K+ Products</span>
+    </div>
+    <div class="floating-card fc2">
+      <mat-icon>trending_up</mat-icon>
+      <span>Sales Up 42%</span>
+    </div>
+    <div class="floating-card fc3">
+      <mat-icon>verified</mat-icon>
+      <span>Quality Assured</span>
+    </div>
+    <div class="hero-blob"></div>
+    <div class="hero-grid-art">
+      <div *ngFor="let c of [].constructor(64)" class="dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BANNER ─────────────────────────────────────────── -->
+<section class="stats-banner" id="stats">
+  <div class="stats-inner">
+    <div class="stat-item" *ngFor="let s of stats">
+      <span class="stat-value">{{ s.value }}</span>
+      <span class="stat-label">{{ s.label }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─────────────────────────────────────────────── -->
+<section class="features" id="features">
+  <div class="section-header">
+    <span class="section-pill">Features</span>
+    <h2>Everything You Need to Run Your Mart</h2>
+    <p>A complete suite of tools, built for speed and simplicity.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card" *ngFor="let f of features">
+      <div class="feature-icon-wrap">
+        <mat-icon>{{ f.icon }}</mat-icon>
+      </div>
+      <h3>{{ f.title }}</h3>
+      <p>{{ f.desc }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ───────────────────────────────────────────── -->
+<section class="cta-banner">
+  <div class="cta-inner">
+    <h2>Ready to take control of your catalog?</h2>
+    <p>Sign in now and start managing products in seconds.</p>
+    <button mat-flat-button class="btn-primary-lg" routerLink="/login">
+      <mat-icon>rocket_launch</mat-icon> Sign In to MegaMart
+    </button>
+  </div>
+</section>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <span>© {{ year }} MegaMart Inc. — All rights reserved.</span>
+</footer>

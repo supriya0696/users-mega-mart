@@ -22,6 +22,9 @@ public class Product {
     @Column(name="status")
     private String status;
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
+
     public Product(String productName, String category, String price, String status) {
         this.productName = productName;
         this.category = category;
@@ -71,6 +74,14 @@ public class Product {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

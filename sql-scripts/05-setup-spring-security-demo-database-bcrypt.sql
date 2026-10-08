@@ -21,14 +21,14 @@ CREATE TABLE `users` (
 --
 -- A generation tool is avail at: https://www.luv2code.com/generate-bcrypt-password
 --
--- Default passwords here are: fun123
+-- Default passwords here are: test123
 --
 
 INSERT INTO `users`
 VALUES
-    ('supriya','{bcrypt}$2a$10$zkqbNmFNVVfyh8/OmTvJc.gS958Eo0BxBPjTPb5hVs1z2QQDk0QHi',1),
-    ('amit','{bcrypt}$2a$10$zkqbNmFNVVfyh8/OmTvJc.gS958Eo0BxBPjTPb5hVs1z2QQDk0QHi',1),
-    ('anand','{bcrypt}$2a$10$zkqbNmFNVVfyh8/OmTvJc.gS958Eo0BxBPjTPb5hVs1z2QQDk0QHi',1);
+    ('supriya','{bcrypt}$2a$10$OaTU95g.rZLAk11Zv2K8qevluSZZrj7MHS.j8yJvFADH7I2d6xSem',1),
+    ('amit','{bcrypt}$2a$10$OaTU95g.rZLAk11Zv2K8qevluSZZrj7MHS.j8yJvFADH7I2d6xSem',1),
+    ('anand','{bcrypt}$2a$10$OaTU95g.rZLAk11Zv2K8qevluSZZrj7MHS.j8yJvFADH7I2d6xSem',1);
 
 
 --
@@ -48,9 +48,9 @@ CREATE TABLE `authorities` (
 
 INSERT INTO `authorities`
 VALUES
-    ('supriya','ROLE_EMPLOYEE'),
-    ('amit','ROLE_EMPLOYEE'),
-    ('amit','ROLE_MANAGER'),
-    ('anand','ROLE_EMPLOYEE'),
-    ('anand','ROLE_MANAGER'),
+    ('supriya','ROLE_USER'),
+    ('amit','ROLE_USER'),
+    ('amit','ROLE_OPERATOR'),
+    ('anand','ROLE_USER'),
+    ('anand','ROLE_OPERATOR'),
     ('anand','ROLE_ADMIN');

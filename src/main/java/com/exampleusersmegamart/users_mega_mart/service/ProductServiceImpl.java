@@ -18,12 +18,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAllByOrderByProductNameAsc();
+        return productRepository.findAllByDeletedFalseOrderByProductNameAsc();
     }
 
     @Override
     public Product findById(int theId) {
-        Optional<Product> result = productRepository.findById(theId);
+        Optional<Product> result = productRepository.findByIdAndDeletedFalse(theId);
         Product theProduct = null;
         if (result.isPresent()) {
             theProduct = result.get();
@@ -41,7 +41,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void deleteById(int theId) {
-        productRepository.deleteById(theId);
+        Product theProduct = productRepository.findById(theId)
+                .orElseThrow(() -> new RuntimeException("Did not find product id - " + theId));
+        theProduct.setDeleted(true);
+        productRepository.save(theProduct);
     }
 }
 

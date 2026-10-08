@@ -1,0 +1,124 @@
+<header class="page-header">
+  <div class="header-inner">
+    <a class="back-link" routerLink="/products">
+      <mat-icon>arrow_back</mat-icon>
+      <span>Back to Catalog</span>
+    </a>
+    <div class="header-title">
+      <div class="title-icon">
+        <mat-icon>{{ isEdit ? 'edit' : 'add_box' }}</mat-icon>
+      </div>
+      <div>
+        <h1>{{ isEdit ? 'Edit Product' : 'Add New Product' }}</h1>
+        <p>{{ isEdit ? 'Update the details below and save.' : 'Fill in the details to list a new product.' }}</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="form-main">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <span>Loading product…</span>
+  </div>
+
+  <div class="form-card" *ngIf="!loading">
+    <form (ngSubmit)="onSave()" #productForm="ngForm">
+
+      <div class="form-grid">
+        <!-- Product Name -->
+        <div class="field-group span-2">
+          <label class="field-label">Product Name <span class="req">*</span></label>
+          <div class="input-wrap" [class.focused]="nameFocus">
+            <mat-icon class="f-icon">shopping_bag</mat-icon>
+            <input
+              class="field-input"
+              [(ngModel)]="product.productName"
+              name="productName"
+              required
+              placeholder="e.g. Wireless Bluetooth Headphones"
+              (focus)="nameFocus=true"
+              (blur)="nameFocus=false"
+            />
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="field-group">
+          <label class="field-label">Category <span class="req">*</span></label>
+          <div class="select-wrap">
+            <mat-icon class="f-icon">category</mat-icon>
+            <select
+              class="field-select"
+              [(ngModel)]="product.category"
+              name="category"
+              required
+            >
+              <option value="" disabled>Select a category</option>
+              <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            </select>
+            <mat-icon class="select-arrow">expand_more</mat-icon>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="field-group">
+          <label class="field-label">Price <span class="req">*</span></label>
+          <div class="input-wrap" [class.focused]="priceFocus">
+            <mat-icon class="f-icon">payments</mat-icon>
+            <input
+              class="field-input"
+              [(ngModel)]="product.price"
+              name="price"
+              required
+              placeholder="e.g. $19.99 or ₹499"
+              (focus)="priceFocus=true"
+              (blur)="priceFocus=false"
+            />
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="field-group span-2">
+          <label class="field-label">Status <span class="req">*</span></label>
+          <div class="status-options">
+            <label
+              class="status-option"
+              *ngFor="let s of statuses"
+              [class.selected]="product.status === s"
+            >
+              <input
+                type="radio"
+                [(ngModel)]="product.status"
+                name="status"
+                [value]="s"
+                required
+              />
+              <span class="status-dot" [class.dot-active]="s === 'Active'" [class.dot-inactive]="s === 'Inactive'"></span>
+              {{ s }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- actions -->
+      <div class="form-actions">
+        <a class="btn-cancel" routerLink="/products">Cancel</a>
+        <button
+          type="submit"
+          class="btn-save"
+          [disabled]="productForm.invalid || saving"
+        >
+          <span *ngIf="!saving">
+            <mat-icon>{{ isEdit ? 'save' : 'add_circle' }}</mat-icon>
+            {{ isEdit ? 'Update Product' : 'Add Product' }}
+          </span>
+          <span *ngIf="saving" class="loader-dots">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</main>

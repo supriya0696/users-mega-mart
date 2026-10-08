@@ -1,0 +1,162 @@
+<!-- ─── HEADER / TOOLBAR ─────────────────────────────────────── -->
+<header class="page-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <a class="brand-link" routerLink="/">
+        <span class="brand-icon">🛒</span>
+        <span class="brand-name">Mega<strong>Mart</strong></span>
+      </a>
+      <span class="divider"></span>
+      <span class="page-title">Product Catalog</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-logout" (click)="logout()">
+        <mat-icon>logout</mat-icon> Sign Out
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- stat cards -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon-wrap sc-blue"><mat-icon>inventory_2</mat-icon></div>
+      <div>
+        <div class="stat-num">{{ products.length }}</div>
+        <div class="stat-lbl">Total Products</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap sc-green"><mat-icon>check_circle</mat-icon></div>
+      <div>
+        <div class="stat-num">{{ activeCount }}</div>
+        <div class="stat-lbl">Active</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap sc-red"><mat-icon>cancel</mat-icon></div>
+      <div>
+        <div class="stat-num">{{ products.length - activeCount }}</div>
+        <div class="stat-lbl">Inactive</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap sc-purple"><mat-icon>category</mat-icon></div>
+      <div>
+        <div class="stat-num">{{ categoryCount }}</div>
+        <div class="stat-lbl">Categories</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- table toolbar -->
+  <div class="table-toolbar">
+    <div class="search-wrap">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input
+        class="search-input"
+        placeholder="Search products…"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+      />
+    </div>
+    <button class="btn-add" routerLink="/products/new" *ngIf="isAdmin()">
+      <mat-icon>add</mat-icon> Add Product
+    </button>
+  </div>
+
+  <!-- loading -->
+  <div *ngIf="loading" class="spinner-container">
+    <div class="spinner"></div>
+    <span>Loading products…</span>
+  </div>
+
+  <div *ngIf="!loading && loadError" class="spinner-container" role="alert">
+    <span>{{ loadError }}</span>
+    <button class="btn-add" type="button" (click)="loadProducts()">Retry</button>
+  </div>
+
+  <!-- table card -->
+  <div class="table-card" *ngIf="!loading && !loadError">
+    <table mat-table [dataSource]="filtered" class="data-table">
+
+      <!-- # -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="col-id">#</th>
+        <td mat-cell *matCellDef="let p" class="col-id cell-id">{{ p.id }}</td>
+      </ng-container>
+
+      <!-- Product Name -->
+      <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef>Product Name</th>
+        <td mat-cell *matCellDef="let p">
+          <div class="product-name-cell">
+            <div class="product-avatar">{{ p.productName.charAt(0).toUpperCase() }}</div>
+            <span>{{ p.productName }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Category -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let p">
+          <span class="badge badge-category">{{ p.category }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Price -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let p" class="price-cell">{{ p.price }}</td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let p">
+          <span class="status-badge" [class.active]="p.status === 'Active'">
+            <span class="status-dot"></span>{{ p.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let p" class="actions-cell">
+          <button
+            class="action-btn edit-btn"
+            matTooltip="Edit product"
+            [routerLink]="['/products/edit', p.id]"
+            *ngIf="isOperator()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            class="action-btn del-btn"
+            matTooltip="Delete product"
+            (click)="deleteProduct(p.id)"
+            *ngIf="isAdmin()"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length" class="empty-row">
+          <mat-icon>inbox</mat-icon>
+          <span>No products found{{ searchTerm ? ' for "' + searchTerm + '"' : '' }}.</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</main>
